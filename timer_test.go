@@ -36,3 +36,24 @@ func TestAfterFunc(t *testing.T) {
 
 	group.Wait()
 }
+
+func TestTicker(t *testing.T) {
+	ticker := time.NewTicker(2 * time.Second)
+
+	go func() {
+		time.Sleep(8 * time.Second)
+		ticker.Stop()
+	}()
+
+	for tick := range ticker.C {
+		fmt.Println(tick)
+	}
+}
+
+func TestTick(t *testing.T) {
+	channel := time.Tick(2 * time.Second)
+
+	for tick := range channel {
+		fmt.Println(tick)
+	}
+}
